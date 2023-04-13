@@ -16,14 +16,14 @@
                         'columnFields' => [
                             [
                                 'label' => 'Actions',
-                                'class' => Itstructure\GridView\Columns\ActionColumn::class,
+                                'class' => Lucianolima00\GridView\Columns\ActionColumn::class,
                                 'actionTypes' => [
                                     'view',
                                     'edit' => function ($data) {
                                         return '/admin/pages/' . $data->id . '/edit';
                                     },
                                     [
-                                        'class' => Itstructure\GridView\Actions\Delete::class,
+                                        'class' => Lucianolima00\GridView\Actions\Delete::class,
                                         'url' => function ($data) {
                                             return '/admin/pages/' . $data->id . '/delete';
                                         },
@@ -39,7 +39,7 @@
                                 'label' => 'Código',
                                 'attribute' => 'id',
                                 'filter' => [
-                                    'class' => Itstructure\GridView\Filters\DropdownFilter::class,
+                                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
                                 ]
                             ],
                             [

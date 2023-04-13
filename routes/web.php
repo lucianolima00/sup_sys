@@ -24,17 +24,23 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/client', [ClientController::class, 'index'])->name('client.index');
-    Route::get('/client/create', [ClientController::class, 'create'])->name('client.create');
-    Route::post('/client/create', [ClientController::class, 'store'])->name('client.store');
-    Route::patch('/client/update', [ClientController::class, 'update'])->name('client.update');
-    Route::delete('/client/delete', [ClientController::class, 'destroy'])->name('client.destroy');
+    /*Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
+    Route::post('/clients/create', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients/update/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+    Route::patch('/clients/update/{id}', [ClientController::class, 'update'])->name('clients.update');
+    Route::delete('/clients/delete', [ClientController::class, 'destroy'])->name('clients.destroy');
 
-    Route::get('/collaborator', [CollaboratorController::class, 'index'])->name('collaborator.index');
-    Route::get('/collaborator/create', [CollaboratorController::class, 'create'])->name('collaborator.create');
-    Route::post('/collaborator/create', [CollaboratorController::class, 'store'])->name('collaborator.store');
-    Route::patch('/collaborator/update', [CollaboratorController::class, 'update'])->name('collaborator.update');
-    Route::delete('/collaborator/delete', [CollaboratorController::class, 'destroy'])->name('collaborator.destroy');
+    Route::get('/collaborators', [CollaboratorController::class, 'index'])->name('collaborators.index');
+    Route::get('/collaborators/create', [CollaboratorController::class, 'create'])->name('collaborators.create');
+    Route::post('/collaborators/create', [CollaboratorController::class, 'store'])->name('collaborators.store');
+    Route::get('/collaborators/{id}/update', [CollaboratorController::class, 'edit'])->name('collaborators.edit');
+    Route::patch('/collaborators/{id}/update', [CollaboratorController::class, 'update'])->name('collaborators.update');
+    Route::delete('/collaborators/{id}/delete', [CollaboratorController::class, 'destroy'])->name('collaborators.destroy');*/
+    Route::resource('clients', ClientController::class);
+    Route::resource('collaborators', CollaboratorController::class, ['except' => ['update', 'destroy']]);
+    Route::any('/collaborators/{collaborator}/update', [CollaboratorController::class, 'update'])->name('collaborators.update');
+    Route::any('/collaborators/{collaborator}/delete', [CollaboratorController::class, 'destroy'])->name('collaborators.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -6,7 +6,7 @@ use App\Models\Collaborator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Itstructure\GridView\DataProviders\EloquentDataProvider;
+use Lucianolima00\GridView\DataProviders\EloquentDataProvider;
 
 class CollaboratorController extends Controller
 {
@@ -17,10 +17,11 @@ class CollaboratorController extends Controller
      */
     public function index(): View
     {
-        $collaborators = new EloquentDataProvider(Collaborator::query());
+        $dataProvider = new EloquentDataProvider(Collaborator::query());
 
-        return view('collaborator.index', compact('collaborators'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('collaborators.index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -30,7 +31,11 @@ class CollaboratorController extends Controller
      */
     public function create(): View
     {
-        return view('collaborator.create');
+        $collaborator = new Collaborator();
+
+        return view('collaborators.create', [
+            'collaborator' => $collaborator
+        ]);
     }
 
     /**
@@ -43,15 +48,15 @@ class CollaboratorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'price' => 'required'
+            'cpf_cnpj' => 'required'
         ]);
 
         $collaborator = new Collaborator($request->all());
+        $collaborator->cpf_cnpj = preg_replace('/[.\/-]/', '', $collaborator->cpf_cnpj);
         $collaborator->save();
 
-        return redirect()->route('collaborator.index')
-            ->with('success', 'Collaborator created successfully.');
+        return redirect()->route('collaborators.index')
+            ->with('success', 'Colaborador cadastrado com sucesso.');
     }
 
     /**
@@ -62,7 +67,7 @@ class CollaboratorController extends Controller
      */
     public function show(Collaborator $collaborator): View
     {
-        return view('collaborator.show', compact('collaborator'));
+        return view('collaborators.show', compact('collaborator'));
     }
 
     /**
@@ -73,7 +78,9 @@ class CollaboratorController extends Controller
      */
     public function edit(Collaborator $collaborator): View
     {
-        return view('collaborator.edit', compact('collaborator'));
+        return view('collaborators.update', [
+            'collaborator' => $collaborator
+        ]);
     }
     /**
      * Update the specified resource in storage.
@@ -86,13 +93,15 @@ class CollaboratorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'price' => 'required'
+            'cpf_cnpj' => 'required'
         ]);
-        $collaborator->update($request->all());
 
-        return redirect()->route('collaborator.index')
-            ->with('success', 'Collaborator updated successfully');
+        $collaborator->name = $request->input('name');
+        $collaborator->cpf_cnpj = preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'));
+        $collaborator->save();
+
+        return redirect()->route('collaborators.index')
+            ->with('success', 'Colaborador atualizado com sucesso');
     }
     /**
      * Remove the specified resource from storage.
@@ -104,7 +113,7 @@ class CollaboratorController extends Controller
     {
         $collaborator->delete();
 
-        return redirect()->route('collaborator.index')
-            ->with('success', 'Collaborator deleted successfully');
+        return redirect()->route('collaborators.index')
+            ->with('success', 'Colaborador excluído com sucesso');
     }
 }

@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('collaborators', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->integer('cpf_cnpj')->nullable();
+            $table->bigInteger('cpf_cnpj')->nullable();
             $table->string('email', 255)->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
             $table->timestamps();
         });
     }

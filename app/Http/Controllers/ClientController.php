@@ -6,7 +6,7 @@ use App\Models\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Itstructure\GridView\DataProviders\EloquentDataProvider;
+use Lucianolima00\GridView\DataProviders\EloquentDataProvider;
 
 class ClientController extends Controller
 {
@@ -16,7 +16,7 @@ class ClientController extends Controller
     public function index(): View
     {
         $dataProvider = new EloquentDataProvider(Client::query());
-        return view('client.index', [
+        return view('clients.index', [
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -28,7 +28,7 @@ class ClientController extends Controller
     {
         $model = new Client();
 
-        return view('client.create', [
+        return view('clients.create', [
             'model' => $model,
         ]);
     }
@@ -42,7 +42,7 @@ class ClientController extends Controller
 
         $client->load($request->except('_token'))->save();
 
-        return to_route('post.show', ['client' => $client->id]);
+        return to_route('post.show', ['clients' => $client->id]);
     }
 
     /**
