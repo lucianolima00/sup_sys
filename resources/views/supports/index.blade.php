@@ -2,7 +2,7 @@
 
 @extends('layouts.interface')
 
-@section('title', 'Clientes')
+@section('title', 'Chamados')
 
 @section('content')
     <div class="row mb-4">
@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('clients.create') }}" title="Adicionar um cliente"> <i
+                <a class="btn btn-success" href="{{ route('supports.create') }}" title="Adicionar um chamado"> <i
                         class="fas fa-plus-circle"></i>
                     {{ __('Adicionar') }}
                 </a>
@@ -38,12 +38,12 @@
                 'class' => Lucianolima00\GridView\Columns\ActionColumn::class,
                 'actionTypes' => [
                     'edit' => function ($data) {
-                        return route('clients.edit', ['client' => $data]);
+                        return route('supports.edit', ['support' => $data]);
                     },
                     [
                         'class' => Lucianolima00\GridView\Actions\Delete::class, // Required
                         'url' => function ($data) {
-                            return route('clients.destroy', ['client' => $data]);
+                            return route('supports.destroy', ['support' => $data]);
                         },
                         'htmlAttributes' => [
                             'data-method' => 'post',

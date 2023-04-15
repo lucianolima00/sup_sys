@@ -24,6 +24,7 @@ return new class extends Migration
             $table->bigInteger('address_zip_code')->nullable();
             $table->string('address_neighborhood')->nullable();
             $table->string('address_city')->nullable();
+            $table->string('address_state')->nullable();
             $table->timestamps();
         });
     }

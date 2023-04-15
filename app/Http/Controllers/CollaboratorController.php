@@ -12,7 +12,6 @@ class CollaboratorController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      * @return View
      */
     public function index(): View
@@ -26,7 +25,6 @@ class CollaboratorController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return View
      */
     public function create(): View
@@ -40,7 +38,6 @@ class CollaboratorController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param Request $request
      * @return RedirectResponse
      */
@@ -60,19 +57,7 @@ class CollaboratorController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Collaborator $collaborator
-     * @return View
-     */
-    public function show(Collaborator $collaborator): View
-    {
-        return view('collaborators.show', compact('collaborator'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
-     *
      * @param Collaborator $collaborator
      * @return View
      */
@@ -84,7 +69,6 @@ class CollaboratorController extends Controller
     }
     /**
      * Update the specified resource in storage.
-     *
      * @param Request $request
      * @param Collaborator $collaborator
      * @return RedirectResponse

@@ -11,9 +11,9 @@ class Formatter extends AbstractWidget
     /**
      * @param string $cpf_cnpj
      * @param bool $punctuation
-     * @return string
+     * @return string|null
      */
-    public static function asCpfCnpj(string $cpf_cnpj, bool $punctuation=true, bool $validation=true): string
+    public static function asCpfCnpj(?string $cpf_cnpj, bool $punctuation=true, bool $validation=true): ?string
     {
         if ((new Cpf())->passes('cpf_cnpj', str_pad($cpf_cnpj, 11, 0, STR_PAD_LEFT)) || (!$validation && strlen($cpf_cnpj) <= 11)) {
             $cpf_cnpj = str_pad($cpf_cnpj, 11, 0, STR_PAD_LEFT);
@@ -34,14 +34,14 @@ class Formatter extends AbstractWidget
 
     /**
      * @param $phone
-     * @return string
+     * @return string|null
      */
-    public static function asPhone($phone): string
+    public static function asPhone(?string $phone): ?string
     {
         if (strlen($phone) === 10) {
             return preg_replace('/(\d{2})(\d{4})(\d{4})/', '(${1}) ${2}-${3}', $phone);
         } elseif (strlen($phone) === 11) {
-            return preg_replace('/(\d{2})(\d{4})(\d{4})/', '(${1}) ${2} ${3}-${4}', $phone);
+            return preg_replace('/(\d{2})(\d)(\d{4})(\d{4})/', '(${1}) ${2} ${3}-${4}', $phone);
         } else {
             return $phone;
         }
@@ -50,9 +50,9 @@ class Formatter extends AbstractWidget
 
     /**
      * @param $cep
-     * @return string
+     * @return string|null
      */
-    public static function asCep($cep): string
+    public static function asCep(?string $cep): ?string
     {
         $cep = str_pad($cep, 8, 0, STR_PAD_LEFT);
 

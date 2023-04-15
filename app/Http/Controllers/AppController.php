@@ -9,11 +9,8 @@ use Lucianolima00\GridView\DataProviders\EloquentDataProvider;
 
 class AppController extends Controller
 {
-    public function dashboard(Request $request): View
+    public function dashboard(Request $request)
     {
-        $dataProvider = new EloquentDataProvider(Client::query());
-        return view('dashboard', [
-            'dataProvider' => $dataProvider,
-        ]);
+        //
     }
 }

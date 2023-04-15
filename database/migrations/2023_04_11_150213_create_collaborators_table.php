@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->bigInteger('cpf_cnpj')->nullable();
             $table->string('email', 255)->nullable();
+            $table->integer('type');
             $table->timestamps();
         });
     }

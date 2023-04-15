@@ -5,7 +5,7 @@
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 </div>
 
-<!-- Company Name -->
+<!-- CPF/CNPJ -->
 <div class="mt-4">
     <x-input-label for="cpf_cnpj" :value="__('CPF/CNPJ')" />
     <x-text-input id="cpf_cnpj" class="block mt-1 w-full" type="text" name="cpf_cnpj" :value="old('cpf_cnpj', $collaborator->cpf_cnpj)" />

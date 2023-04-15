@@ -5,20 +5,20 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('supports.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('supports.index')" :active="request()->routeIs('supports.*')">
+                        {{ __('Chamados') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
+                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
                         {{ __('Clientes') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('collaborators.index')" :active="request()->routeIs('collaborators.index')">
+                    <x-nav-link :href="route('collaborators.index')" :active="request()->routeIs('collaborators.*')">
                         {{ __('Colaboradores') }}
                     </x-nav-link>
                 </div>
@@ -41,7 +41,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Perfil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -51,7 +51,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Sair') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -73,8 +73,14 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('supports.index')" :active="request()->routeIs('supports')">
+                {{ __('Chamados') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
+                {{ __('Clientes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('collaborators.index')" :active="request()->routeIs('collaborators.*')">
+                {{ __('Colaboradores') }}
             </x-responsive-nav-link>
         </div>
 
@@ -87,7 +93,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -97,7 +103,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Sair') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
