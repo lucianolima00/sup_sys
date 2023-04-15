@@ -1,15 +1,36 @@
-<!-- Name -->
-<div>
-    <x-input-label for="name" :value="__('Nome')" />
-    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $collaborator->name)" required autofocus autocomplete="name" />
-    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@php use App\Constants\CollaboratorTypes; @endphp
+
+    <!-- Name -->
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="name" :value="__('Nome')"/>
+    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $collaborator->name)"
+                  required autofocus autocomplete="name"/>
+    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+</div>
+
+<!-- Email -->
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="email" :value="__('E-mail')"/>
+    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                  :value="old('email', $collaborator->email)"
+                  required autofocus autocomplete="email"/>
+    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
 </div>
 
 <!-- CPF/CNPJ -->
-<div class="mt-4">
-    <x-input-label for="cpf_cnpj" :value="__('CPF/CNPJ')" />
-    <x-text-input id="cpf_cnpj" class="block mt-1 w-full" type="text" name="cpf_cnpj" :value="old('cpf_cnpj', $collaborator->cpf_cnpj)" />
-    <x-input-error :messages="$errors->get('cpf_cnpj')" class="mt-2" />
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="cpf_cnpj" :value="__('CPF/CNPJ')"/>
+    <x-text-input id="cpf_cnpj" class="block mt-1 w-full" type="text" name="cpf_cnpj"
+                  :value="old('cpf_cnpj', $collaborator->cpf_cnpj)"/>
+    <x-input-error :messages="$errors->get('cpf_cnpj')" class="mt-2"/>
+</div>
+
+<!-- Type -->
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="type" :value="__('Tipo')"/>
+    <x-select-input id="type" placeholder="Selecione um tipo" class="block mt-1 w-full" type="text" name="type"
+                    :value="old('type', $collaborator->type)" :data="CollaboratorTypes::list()"/>
+    <x-input-error :messages="$errors->get('type')" class="mt-2"/>
 </div>
 
 <div class="flex items-center justify-end mt-4">
@@ -22,7 +43,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         let cpf_cnpj = $('#cpf_cnpj');
         var options = {
             onKeyPress: function (string, e, field, options) {
@@ -36,7 +57,7 @@
                 field[0].setSelectionRange(field.val().length, field.val().length);
                 field.focus();
             },
-            translation:  {'Z': {pattern: /[0-9]/, optional: true}}
+            translation: {'Z': {pattern: /[0-9]/, optional: true}}
         };
         if (cpf_cnpj.val().replace(/[./-]/g, '').length > 11) {
             cpf_cnpj.mask('99.999.999/9999-99', options);

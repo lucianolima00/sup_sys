@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.8",
         "laravellegends/pt-br-validator": "^10.0",
         "lucianolima00/laravel-grid-view": "~1.0.14",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+      "ext-xdebug": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

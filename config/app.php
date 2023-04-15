@@ -209,7 +209,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Formatter' => 'App\Widgets\Formatter'
+        'Formatter' => 'App\Widgets\Formatter',
+        'CollaboratorType' => \App\Constants\CollaboratorTypes::class,
+        'SupportStatus' => \App\Constants\SupportStatus::class,
     ])->toArray(),
 
 ];

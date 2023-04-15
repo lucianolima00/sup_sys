@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::any('/', [SupportController::class, 'index'])->name('supports.index');
     Route::any('/supports/{supports}/update', [SupportController::class, 'update'])->name('supports.update');
     Route::any('/supports/{supports}/delete', [SupportController::class, 'destroy'])->name('supports.destroy');
+    Route::post('/supports/collaborators', [SupportController::class, 'collaborators'])->name('supports.collaborators');
+    Route::post('/supports/clients', [SupportController::class, 'clients'])->name('supports.clients');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

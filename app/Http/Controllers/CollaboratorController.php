@@ -45,7 +45,8 @@ class CollaboratorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'cpf_cnpj' => 'required'
+            'cpf_cnpj' => 'required',
+            'type' => 'required',
         ]);
 
         $collaborator = new Collaborator($request->all());
@@ -77,7 +78,8 @@ class CollaboratorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'cpf_cnpj' => 'required'
+            'cpf_cnpj' => 'required',
+            'type' => 'required',
         ]);
 
         $collaborator->name = $request->input('name');

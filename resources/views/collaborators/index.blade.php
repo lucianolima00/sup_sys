@@ -61,6 +61,14 @@
                 'attribute' => 'name',
             ],
             [
+                'label' => 'Tipo',
+                'attribute' => 'type',
+            ],
+            [
+                'label' => 'E-mail',
+                'attribute' => 'email',
+            ],
+            [
                 'label' => 'CPF/CNPJ',
                 'attribute' => 'cpf_cnpj',
                 'value' => function ($row) {

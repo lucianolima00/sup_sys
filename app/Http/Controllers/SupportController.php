@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Support;
+use Illuminate\Support\Arr;
+use App\Models\Collaborator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -110,16 +112,58 @@ class SupportController extends Controller
             ->with('success', 'Chamado excluído com sucesso');
     }
 
-    // Fetch records
-    public function getClients($name=''){
+    /**
+     * @param $search
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function collaborators(Request $request) {
+        $data = [];
 
-        // Fetch Clients
-        $empData['data'] = Client::orderby("name","asc")
-            ->select('id','name')
-            ->where('name',$name)
-            ->get();
+        if ($request->search) {
+            $items = Collaborator::orderby("name", "asc")
+                ->select('id', 'name')
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->where('type', $request->type);
 
-        return response()->json($empData);
+            if ($request->used_id) {
+                $items = $items->where('id', '<>', $request->used_id);
+            }
+
+            $items = $items->get();
+
+            foreach ($items as $item) {
+                $data[] = [
+                    'id' => $item->id, 'text' => $item->name
+                ];
+            }
+        }
+
+        return response()->json($data);
+
+    }
+
+
+    /**
+     * @param $search
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function clients(Request $request) {
+        $data = [];
+
+        if ($request->search) {
+            $items = Client::orderby("name","asc")
+                ->select('id','name')
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->get();
+
+            foreach ($items as $item) {
+                $data[] = [
+                    'id' => $item->id, 'text' => $item->name
+                ];
+            }
+        }
+
+        return response()->json($data);
 
     }
 }
