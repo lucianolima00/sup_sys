@@ -58,4 +58,14 @@ class Formatter extends AbstractWidget
 
         return preg_replace('/(\d{5})(\d{3})/', '${1}-${2}', $cep);
     }
+
+
+    /**
+     * @param $id
+     * @return string|null
+     */
+    public static function asID(?string $id): ?string
+    {
+        return '#' . str_pad($id, 6, 0, STR_PAD_LEFT);
+    }
 }

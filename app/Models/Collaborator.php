@@ -10,11 +10,6 @@ class Collaborator extends Model
     use HasFactory;
 
     protected $table = 'collaborators';
-
-    public static $typeList = [
-        0 => 'Técnico',
-        1 => 'Solicitante',
-    ];
     public $timestamps = true;
 
     protected $fillable = [

@@ -1,19 +1,34 @@
-@php use App\Models\Support ;use App\Models\Collaborator;use App\Constants\SupportStatus;use App\Constants\CollaboratorTypes@endphp
-
-    <!-- Name -->
+@php use App\Models\Support ;use App\Widgets\Formatter;use App\Models\Collaborator;use App\Constants\SupportStatus;use App\Constants\CollaboratorTypes@endphp
+    <!-- ID -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="opening_date" :value="__('Data de abertura')"/>
-    <x-text-input id="opening_date" class="block mt-1 w-full" type="date-local" name="opening_date"
-                  :value="old('opening_date', $support->opening_date)" required autofocus autocomplete="opening_date"/>
-    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+    <x-input-label for="id" :value="__('Código')"/>
+    <x-text-input id="id" disabled="true" class="block mt-1 w-full" type="text" name="id"
+                  :value="Formatter::asID(old('id', $support->id))" autocomplete="id"/>
+    <x-input-error :messages="$errors->get('id')" class="mt-2"/>
 </div>
 
 <!-- Status -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="status" :value="__('Status')"/>
-    <x-select-input id="status" placeholder="Selecione um status" class="block mt-1 w-full" type="text" name="status"
+    <x-select-input id="status" class="block mt-1 w-full" type="text" name="status"
                     :value="old('status', $support->status)" :data="SupportStatus::list()"/>
     <x-input-error :messages="$errors->get('status')" class="mt-2"/>
+</div>
+
+<!-- Opening Date -->
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="opening_date" :value="__('Data de abertura')"/>
+    <x-text-input id="opening_date" class="block mt-1 w-full" type="date-local" name="opening_date"
+                  :value="old('opening_date', $support->opening_date)" required autocomplete="opening_date"/>
+    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+</div>
+
+<!-- Start Datetime -->
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+    <x-input-label for="start_datetime" :value="__('Data de agendamento')"/>
+    <x-text-input id="start_datetime" type="datetime-local" class="block mt-1 w-full" name="birth_day"
+                  :value="old('start_datetime', $support->start_datetime)"/>
+    <x-input-error :messages="$errors->get('start_datetime')" class="mt-2"/>
 </div>
 
 <!-- Primary Collaborator ID -->
@@ -34,28 +49,12 @@
     <x-input-error :messages="$errors->get('secondary_collaborator_id')" class="mt-2"/>
 </div>
 
-<!-- Start Datetime -->
-<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="start_datetime" :value="__('Data de agendamento')"/>
-    <x-text-input id="start_datetime" type="datetime-local" class="block mt-1 w-full" name="birth_day"
-                  :value="old('start_datetime', $support->start_datetime)"/>
-    <x-input-error :messages="$errors->get('start_datetime')" class="mt-2"/>
-</div>
-
 <!-- Client ID -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="client_id" :value="__('Cliente')"/>
     <x-select-input id="client_id" :select2 placeholder="Selecione um cliente" class="block mt-1 w-full" type="text"
                     name="client_id" :value="old('client_id', $support->client_id)"/>
     <x-input-error :messages="$errors->get('client_id')" class="mt-2"/>
-</div>
-
-<!-- Address -->
-<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="address" :value="__('Localidade')"/>
-    <x-text-input id="address" class="block mt-1 w-full" type="text" name="address"
-                  :value="old('address', $support->address)" autofocus autocomplete="address"/>
-    <x-input-error :messages="$errors->get('address')" class="mt-2"/>
 </div>
 
 <!-- Requester ID -->
@@ -66,30 +65,30 @@
     <x-input-error :messages="$errors->get('requester_id')" class="mt-2"/>
 </div>
 
-<!-- Address Zip Code -->
-<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="address_zip_code" :value="__('CEP')"/>
-    <x-text-input id="address_zip_code" class="block mt-1 w-full" type="text" name="address_zip_code"
-                  :value="old('address_zip_code', $support->address_zip_code)" autofocus
-                  autocomplete="address_zip_code"/>
-    <x-input-error :messages="$errors->get('address_zip_code')" class="mt-2"/>
+<!-- Address -->
+<div class="col-12 col-md-12 col-lg-12 col-xl-12 mt-4">
+    <x-input-label for="address" :value="__('Localidade')"/>
+    <x-text-input id="address" class="block mt-1 w-full" type="text" name="address"
+                  :value="old('address', $support->address)" autocomplete="address"/>
+    <x-input-error :messages="$errors->get('address')" class="mt-2"/>
 </div>
 
-<!-- Address Neighborhood -->
-<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="address_neighborhood" :value="__('Bairro')"/>
-    <x-text-input id="address_neighborhood" class="block mt-1 w-full" type="text" name="address_neighborhood"
-                  :value="old('address_neighborhood', $support->address_neighborhood)" autofocus
-                  autocomplete="address_neighborhood"/>
-    <x-input-error :messages="$errors->get('address_neighborhood')" class="mt-2"/>
+<!-- Description -->
+<div class="col-12 col-md-12 col-lg-12 col-xl-12 mt-4">
+    <x-input-label for="description" :value="__('Descrição')"/>
+    <x-textarea-input id="description" class="block mt-1 w-full" cols="4" rows="5" name="description"
+                      :value="old('description', $support->description)"
+                      autocomplete="description"/>
+    <x-input-error :messages="$errors->get('description')" class="mt-2"/>
 </div>
 
-<!-- Address State -->
-<div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="address_state" :value="__('Estado')"/>
-    <x-text-input id="address_state" class="block mt-1 w-full" type="text" name="address_state"
-                  :value="old('address_state', $support->address_state)" autofocus autocomplete="address_state"/>
-    <x-input-error :messages="$errors->get('address_state')" class="mt-2"/>
+<!-- Solution -->
+<div class="col-12 col-md-12 col-lg-12 col-xl-12 mt-4">
+    <x-input-label for="solution" :value="__('Andamento/Solução')"/>
+    <x-textarea-input id="solution" class="block mt-1 w-full" cols="4" rows="5" name="solution"
+                      :value="old('solution', $support->solution)"
+                      autocomplete="solution"/>
+    <x-input-error :messages="$errors->get('solution')" class="mt-2"/>
 </div>
 
 <div class="flex items-center justify-end mt-4">

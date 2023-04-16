@@ -10,7 +10,7 @@
 
 <!-- Email -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
-    <x-input-label for="email" :value="__('E-mail')"/>
+    <x-input-label for="email" :value="__('Email')"/>
     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
                   :value="old('email', $collaborator->email)"
                   required autofocus autocomplete="email"/>

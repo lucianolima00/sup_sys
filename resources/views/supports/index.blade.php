@@ -1,4 +1,4 @@
-@php use App\Widgets\Formatter; @endphp
+@php use App\Widgets\Formatter;use App\Constants\SupportStatus; @endphp
 
 @extends('layouts.interface')
 
@@ -57,26 +57,47 @@
                 'attribute' => 'id',
             ],
             [
-                'label' => 'Nome fantasia',
-                'attribute' => 'name',
+                'label' => 'Data de abertura',
+                'attribute' => 'opening_date',
             ],
             [
-                'label' => 'Razão social',
-                'attribute' => 'company_name',
+                'label' => 'Técnico 1',
+                'attribute' => 'primary_collaborator_id',
             ],
             [
-                'label' => 'CPF/CNPJ',
-                'attribute' => 'cpf_cnpj',
+                'label' => 'Técnico 2',
+                'attribute' => 'secondary_collaborator_id',
+            ],
+            [
+                'label' => 'Data de agendamento',
+                'attribute' => 'start_datetime',
+            ],
+            [
+                'label' => 'Cliente',
+                'attribute' => 'client_id',
+            ],
+            [
+                'label' => 'Localidade',
+                'attribute' => 'address',
+            ],
+            [
+                'label' => 'Descrição',
+                'attribute' => 'description',
+            ],
+            [
+                'label' => 'Status',
+                'attribute' => 'status',
                 'value' => function ($row) {
-                    return Formatter::asCpfCnpj($row->cpf_cnpj, true, false);
+                    return Arr::get(SupportStatus::list(), $row->status);
                 },
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => SupportStatus::list()
+                ]
             ],
             [
-                'label' => 'Telefone',
-                'attribute' => 'phone',
-                'value' => function ($row) {
-                    return Formatter::asPhone($row->phone);
-                },
+                'label' => 'Andamento/Solução',
+                'attribute' => 'solution',
             ],
         ]
     ]) !!}

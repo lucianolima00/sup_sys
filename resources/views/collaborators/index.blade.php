@@ -1,4 +1,4 @@
-@php use App\Widgets\Formatter; @endphp
+@php use App\Widgets\Formatter;use Illuminate\Support\Arr;use App\Constants\CollaboratorTypes; @endphp
 
 @extends('layouts.interface')
 
@@ -13,7 +13,8 @@
                 </h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('collaborators.create') }}" title="Adicionar um colaborador"> <i
+                <a class="btn btn-success" href="{{ route('collaborators.create') }}" title="Adicionar um colaborador">
+                    <i
                         class="fas fa-plus-circle"></i>
                     {{ __('Adicionar') }}
                 </a>
@@ -63,9 +64,16 @@
             [
                 'label' => 'Tipo',
                 'attribute' => 'type',
+                'value' => function ($row) {
+                    return Arr::get(CollaboratorTypes::list(), $row->type);
+                },
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => CollaboratorTypes::list(),
+                ]
             ],
             [
-                'label' => 'E-mail',
+                'label' => 'Email',
                 'attribute' => 'email',
             ],
             [

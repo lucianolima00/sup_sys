@@ -55,14 +55,26 @@
             [
                 'label' => 'Código',
                 'attribute' => 'id',
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
+                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
+                ]
             ],
             [
                 'label' => 'Nome fantasia',
                 'attribute' => 'name',
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
+                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
+                ]
             ],
             [
                 'label' => 'Razão social',
                 'attribute' => 'company_name',
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
+                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
+                ]
             ],
             [
                 'label' => 'CPF/CNPJ',
@@ -70,6 +82,10 @@
                 'value' => function ($row) {
                     return Formatter::asCpfCnpj($row->cpf_cnpj, true, false);
                 },
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
+                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
+                ]
             ],
             [
                 'label' => 'Telefone',
@@ -77,6 +93,10 @@
                 'value' => function ($row) {
                     return Formatter::asPhone($row->phone);
                 },
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
+                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
+                ]
             ],
         ]
     ]) !!}

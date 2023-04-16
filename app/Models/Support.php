@@ -11,14 +11,6 @@ class Support extends Model
 
     protected $table = 'supports';
 
-    public static $statusList = [
-        0 => 'Não iniciado',
-        1 => 'Pendente',
-        2 => 'Em Andamento',
-        3 => 'Entregar',
-        4 => 'Finalizado',
-    ];
-
     public $timestamps = true;
 
     protected $fillable = [

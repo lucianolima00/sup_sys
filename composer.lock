@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a41a6447c74f241502541b4ce55a0de4",
+    "content-hash": "7f8e31c63d3cc812bf65a68983cdd756",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -1824,16 +1824,16 @@
         },
         {
             "name": "lucianolima00/laravel-grid-view",
-            "version": "1.0.14",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucianolima00/laravel-grid-view.git",
-                "reference": "b09a8ffd0317fbd658675d570d526e89564772bd"
+                "reference": "5bd4560ba824688fdf5443ac0e29074cd2821464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucianolima00/laravel-grid-view/zipball/b09a8ffd0317fbd658675d570d526e89564772bd",
-                "reference": "b09a8ffd0317fbd658675d570d526e89564772bd",
+                "url": "https://api.github.com/repos/lucianolima00/laravel-grid-view/zipball/5bd4560ba824688fdf5443ac0e29074cd2821464",
+                "reference": "5bd4560ba824688fdf5443ac0e29074cd2821464",
                 "shasum": ""
             },
             "require": {
@@ -1876,9 +1876,9 @@
                 "view"
             ],
             "support": {
-                "source": "https://github.com/lucianolima00/laravel-grid-view/tree/1.0.14"
+                "source": "https://github.com/lucianolima00/laravel-grid-view/tree/1.0.17"
             },
-            "time": "2023-04-13T01:55:21+00:00"
+            "time": "2023-04-16T12:49:13+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8067,7 +8067,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-pdo": "*",
+        "ext-xdebug": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
