@@ -1,4 +1,11 @@
-@php use App\Widgets\Formatter;use App\Constants\SupportStatus; @endphp
+@php
+
+use App\Widgets\Formatter;
+use App\Models\Client;
+use App\Models\Collaborator;
+use App\Constants\SupportStatus;
+
+@endphp
 
 @extends('layouts.interface')
 
@@ -55,34 +62,89 @@
             [
                 'label' => 'Código',
                 'attribute' => 'id',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Data de abertura',
                 'attribute' => 'opening_date',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Técnico 1',
                 'attribute' => 'primary_collaborator_id',
+                'value' => function ($row) {
+                    if ($collaborator = Collaborator::find($row->primary_collaborator_id)) {
+                        return $collaborator->name;
+                    }
+                    return $row->primary_collaborator_id;
+                },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Técnico 2',
                 'attribute' => 'secondary_collaborator_id',
+                'value' => function ($row) {
+                    if ($collaborator = Collaborator::find($row->secondary_collaborator_id)) {
+                        return $collaborator->name;
+                    }
+                    return $row->secondary_collaborator_id;
+                },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Data de agendamento',
                 'attribute' => 'start_datetime',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Cliente',
                 'attribute' => 'client_id',
+                'value' => function ($row) {
+                    if ($client = Client::find($row->client_id)) {
+                        return $client->name;
+                    }
+                    return $row->client_id;
+                },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Localidade',
                 'attribute' => 'address',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
+            ],
+            [
+                'label' => 'Solicitante',
+                'attribute' => 'requester_id',
+                'value' => function ($row) {
+                    if ($collaborator = Collaborator::find($row->requester_id)) {
+                        return $collaborator->name;
+                    }
+                    return $row->requester_id;
+                },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Descrição',
                 'attribute' => 'description',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
             [
                 'label' => 'Status',
@@ -93,11 +155,17 @@
                 'filter' => [
                     'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
                     'data' => SupportStatus::list()
+                ],
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
                 ]
             ],
             [
                 'label' => 'Andamento/Solução',
                 'attribute' => 'solution',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ]
             ],
         ]
     ]) !!}

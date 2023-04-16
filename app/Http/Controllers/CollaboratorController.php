@@ -49,8 +49,8 @@ class CollaboratorController extends Controller
             'type' => 'required',
         ]);
 
+        $request->request->add(['cpf_cnpj' => preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'))]);
         $collaborator = new Collaborator($request->all());
-        $collaborator->cpf_cnpj = preg_replace('/[.\/-]/', '', $collaborator->cpf_cnpj);
         $collaborator->save();
 
         return redirect()->route('collaborators.index')
@@ -82,9 +82,10 @@ class CollaboratorController extends Controller
             'type' => 'required',
         ]);
 
-        $collaborator->name = $request->input('name');
-        $collaborator->cpf_cnpj = preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'));
-        $collaborator->save();
+        $request->request->remove("_token");
+        $request->request->add(['cpf_cnpj' => preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'))]);
+
+        $collaborator->update($request->all());
 
         return redirect()->route('collaborators.index')
             ->with('success', 'Colaborador atualizado com sucesso');

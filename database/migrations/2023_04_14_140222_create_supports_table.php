@@ -20,7 +20,7 @@ return new class extends Migration
             $table->datetime('start_datetime')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->string('address')->nullable();
-            $table->unsignedBigInteger('requester_id');
+            $table->unsignedBigInteger('requester_id')->nullable();
             $table->text('description')->nullable();
             $table->text('solution')->nullable();
             $table->timestamps();
@@ -41,7 +41,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('collaborators')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->foreign('client_id')
                 ->references('id')

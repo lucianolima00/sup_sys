@@ -2,7 +2,7 @@
 
 @extends('layouts.interface')
 
-@section('title', 'Clientes')
+@section('title', 'Usuários')
 
 @section('content')
     <div class="row mb-4">
@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('clients.create') }}" title="Adicionar um cliente"> <i
+                <a class="btn btn-success" href="{{ route('users.create') }}" title="Adicionar um usuário"> <i
                         class="fas fa-plus-circle"></i>
                     {{ __('Adicionar') }}
                 </a>
@@ -38,12 +38,12 @@
                 'class' => Lucianolima00\GridView\Columns\ActionColumn::class,
                 'actionTypes' => [
                     'edit' => function ($data) {
-                        return route('clients.edit', ['client' => $data]);
+                        return route('users.edit', ['user' => $data]);
                     },
                     [
                         'class' => Lucianolima00\GridView\Actions\Delete::class, // Required
                         'url' => function ($data) {
-                            return route('clients.destroy', ['client' => $data]);
+                            return route('users.destroy', ['user' => $data]);
                         },
                         'htmlAttributes' => [
                             'data-method' => 'post',
@@ -64,7 +64,7 @@
                 ]
             ],
             [
-                'label' => 'Nome fantasia',
+                'label' => 'Nome',
                 'attribute' => 'name',
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
@@ -72,11 +72,11 @@
                 'filter' => [
                     'class' => Lucianolima00\GridView\Filters\TextFilter::class,
                     'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
-                ]
+                ],
             ],
             [
-                'label' => 'Razão social',
-                'attribute' => 'company_name',
+                'label' => 'Email',
+                'attribute' => 'email',
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
                 ],
@@ -86,24 +86,10 @@
                 ]
             ],
             [
-                'label' => 'CPF/CNPJ',
-                'attribute' => 'cpf_cnpj',
+                'label' => 'Administrador',
+                'attribute' => 'admin',
                 'value' => function ($row) {
-                    return Formatter::asCpfCnpj($row->cpf_cnpj, true, false);
-                },
-                'htmlAttributes' => [
-                    'style' => 'padding-right: 2rem'
-                ],
-                'filter' => [
-                    'class' => Lucianolima00\GridView\Filters\TextFilter::class,
-                    'cssClass' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm',
-                ]
-            ],
-            [
-                'label' => 'Telefone',
-                'attribute' => 'phone',
-                'value' => function ($row) {
-                    return Formatter::asPhone($row->phone);
+                    return Arr::get(['Não', 'Sim'], $row->admin);
                 },
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'

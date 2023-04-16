@@ -56,10 +56,16 @@
             [
                 'label' => 'Código',
                 'attribute' => 'id',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ],
             ],
             [
                 'label' => 'Nome',
                 'attribute' => 'name',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ],
             ],
             [
                 'label' => 'Tipo',
@@ -67,6 +73,9 @@
                 'value' => function ($row) {
                     return Arr::get(CollaboratorTypes::list(), $row->type);
                 },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 6rem'
+                ],
                 'filter' => [
                     'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
                     'data' => CollaboratorTypes::list(),
@@ -75,6 +84,9 @@
             [
                 'label' => 'Email',
                 'attribute' => 'email',
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ],
             ],
             [
                 'label' => 'CPF/CNPJ',
@@ -82,6 +94,9 @@
                 'value' => function ($row) {
                     return Formatter::asCpfCnpj($row->cpf_cnpj, true, false);
                 },
+                'htmlAttributes' => [
+                    'style' => 'padding-right: 2rem'
+                ],
             ],
         ]
     ]) !!}

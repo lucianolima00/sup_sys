@@ -1,6 +1,6 @@
 @php use App\Constants\CollaboratorTypes; @endphp
 
-    <!-- Name -->
+<!-- Name -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="name" :value="__('Nome')"/>
     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $collaborator->name)"
@@ -43,12 +43,11 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function(){
         let cpf_cnpj = $('#cpf_cnpj');
-        var options = {
+        const options = {
             onKeyPress: function (string, e, field, options) {
                 var masks = ['999.999.999-99Z', '99.999.999/9999-99'];
-                console.log(string.replace(/[./-]/g, '').length);
                 var mask = string.replace(/[./-]/g, '').length > 11 ? masks[1] : masks[0];
 
                 field.unmask();
@@ -57,9 +56,9 @@
                 field[0].setSelectionRange(field.val().length, field.val().length);
                 field.focus();
             },
-            translation: {'Z': {pattern: /[0-9]/, optional: true}}
+            translation:  {'Z': {pattern: /[0-9]/, optional: true}}
         };
-        if (cpf_cnpj.val().replace(/[./-]/g, '').length > 11) {
+        if (cpf_cnpj.val().replace(/[./-]/g, '').length === '' || cpf_cnpj.val().replace(/[./-]/g, '').length > 11) {
             cpf_cnpj.mask('99.999.999/9999-99', options);
         } else {
             cpf_cnpj.mask('999.999.999-99', options);

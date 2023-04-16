@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CollaboratorController;
 use App\Http\Controllers\ProfileController;
@@ -18,10 +19,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
+    Route::middleware('admin')->group(function () {
+        Route::resource('users', UserController::class, ['except' => ['show', 'update', 'destroy']]);
+        Route::any('/users/{user}/update', [UserController::class, 'update'])->name('users.update');
+        Route::any('/users/{user}/delete', [UserController::class, 'destroy'])->name('users.destroy');
+    });
+
     Route::resource('supports', SupportController::class, ['except' => ['index', 'show', 'update', 'destroy']]);
     Route::any('/', [SupportController::class, 'index'])->name('supports.index');
-    Route::any('/supports/{supports}/update', [SupportController::class, 'update'])->name('supports.update');
-    Route::any('/supports/{supports}/delete', [SupportController::class, 'destroy'])->name('supports.destroy');
+    Route::any('/supports/{support}/update', [SupportController::class, 'update'])->name('supports.update');
+    Route::any('/supports/{support}/delete', [SupportController::class, 'destroy'])->name('supports.destroy');
     Route::post('/supports/collaborators', [SupportController::class, 'collaborators'])->name('supports.collaborators');
     Route::post('/supports/clients', [SupportController::class, 'clients'])->name('supports.clients');
 

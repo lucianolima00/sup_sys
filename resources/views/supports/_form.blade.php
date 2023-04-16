@@ -1,4 +1,4 @@
-@php use App\Models\Support ;use App\Widgets\Formatter;use App\Models\Collaborator;use App\Constants\SupportStatus;use App\Constants\CollaboratorTypes@endphp
+@php use App\Widgets\Formatter;use App\Constants\SupportStatus;use App\Constants\CollaboratorTypes@endphp
     <!-- ID -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="id" :value="__('Código')"/>
@@ -20,48 +20,64 @@
     <x-input-label for="opening_date" :value="__('Data de abertura')"/>
     <x-text-input id="opening_date" class="block mt-1 w-full" type="date-local" name="opening_date"
                   :value="old('opening_date', $support->opening_date)" required autocomplete="opening_date"/>
-    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+    <x-input-error :messages="$errors->get('opening_date')" class="mt-2"/>
 </div>
 
 <!-- Start Datetime -->
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="start_datetime" :value="__('Data de agendamento')"/>
-    <x-text-input id="start_datetime" type="datetime-local" class="block mt-1 w-full" name="birth_day"
+    <x-text-input id="start_datetime" type="datetime-local" class="block mt-1 w-full" name="start_datetime"
                   :value="old('start_datetime', $support->start_datetime)"/>
     <x-input-error :messages="$errors->get('start_datetime')" class="mt-2"/>
 </div>
 
 <!-- Primary Collaborator ID -->
+@php
+    $data = old('primary_collaborator_id', $support->primary_collaborator_id) ? [old('primary_collaborator_id', $support->primary_collaborator_id) => $support->primary_collaborator->name] : null
+@endphp
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="primary_collaborator_id" :value="__('Técnico 1')"/>
-    <x-select-input id="primary_collaborator_id" :select2 placeholder="Selecione um técnico" class="block mt-1 w-full"
+    <x-select-input id="primary_collaborator_id" placeholder="Selecione um técnico" class="block mt-1 w-full"
                     type="text" name="primary_collaborator_id"
-                    :value="old('primary_collaborator_id', $support->primary_collaborator_id)"/>
+                    :value="old('primary_collaborator_id', $support->primary_collaborator_id)"
+                    :data="$data"/>
     <x-input-error :messages="$errors->get('primary_collaborator_id')" class="mt-2"/>
 </div>
 
 <!-- Secondary Collaborator ID -->
+@php
+    $data = old('secondary_collaborator_id', $support->secondary_collaborator_id) ? [old('secondary_collaborator_id', $support->secondary_collaborator_id) => $support->secondary_collaborator->name] : null
+@endphp
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="secondary_collaborator_id" :value="__('Técnico 2')"/>
-    <x-select-input id="secondary_collaborator_id" :select2 placeholder="Selecione um técnico" class="block mt-1 w-full"
+    <x-select-input id="secondary_collaborator_id" placeholder="Selecione um técnico" class="block mt-1 w-full"
                     type="text" name="secondary_collaborator_id"
-                    :value="old('secondary_collaborator_id', $support->secondary_collaborator_id)"/>
+                    :value="old('secondary_collaborator_id', $support->secondary_collaborator_id)"
+                    :data="$data"/>
     <x-input-error :messages="$errors->get('secondary_collaborator_id')" class="mt-2"/>
 </div>
 
 <!-- Client ID -->
+@php
+    $data = old('client_id', $support->client_id) ? [old('client_id', $support->client_id) => $support->client->name] : null
+@endphp
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="client_id" :value="__('Cliente')"/>
-    <x-select-input id="client_id" :select2 placeholder="Selecione um cliente" class="block mt-1 w-full" type="text"
-                    name="client_id" :value="old('client_id', $support->client_id)"/>
+    <x-select-input id="client_id" placeholder="Selecione um cliente" class="block mt-1 w-full" type="text"
+                    name="client_id" :value="old('client_id', $support->client_id)"
+                    :data="$data"/>
     <x-input-error :messages="$errors->get('client_id')" class="mt-2"/>
 </div>
 
 <!-- Requester ID -->
+@php
+    $data = old('requester_id', $support->requester_id) ? [old('requester_id', $support->requester_id) => $support->requester->name] : null
+@endphp
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="requester_id" :value="__('Solicitante')"/>
-    <x-select-input id="requester_id" :select2 placeholder="Selecione o solicitante" class="block mt-1 w-full"
-                    type="text" name="requester_id" :value="old('requester_id', $support->requester_id)"/>
+    <x-select-input id="requester_id" placeholder="Selecione o solicitante" class="block mt-1 w-full"
+                    type="text" name="requester_id" :value="old('requester_id', $support->requester_id)"
+                    :data="$data"/>
     <x-input-error :messages="$errors->get('requester_id')" class="mt-2"/>
 </div>
 
@@ -102,19 +118,23 @@
 <!-- Script -->
 <script type="text/javascript">
     flatpickr("#opening_date", {
-        dateFormat: 'd/m/Y',
+        dateFormat: 'Y-m-d',
+        altFormat: 'd/m/Y',
         defaultDate: new Date(),
         disableMobile: "true",
+        altInput: "true",
     });
     flatpickr("#start_datetime", {
-        dateFormat: 'd/m/Y H:i',
+        dateFormat: 'Y-m-d H:i',
+        altFormat: 'd/m/Y H:i',
         enableTime: true,
         disableMobile: "true",
         time_24hr: true,
+        altInput: "true",
     });
 
     // CSRF Token
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function () {
         $("#primary_collaborator_id").select2({
             allowClear: true,

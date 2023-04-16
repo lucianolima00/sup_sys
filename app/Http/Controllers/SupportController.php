@@ -47,11 +47,17 @@ class SupportController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
-        ]);
+            'opening_date' => 'required',
+            'status' => 'required',
+            'client_id' => 'required',
+        ],
+        [
+            'opening_date.required'=> 'Data de abertura é obrigatório',
+            'status.required'=> 'Status é obrigatório',
+            'client_id.required'=> 'Cliente é obrigatório',
+       ]);
 
         $support = new Support($request->all());
-        $support->cpf_cnpj = $support->cpf_cnpj ? preg_replace('/[.\/-]/', '', $support->cpf_cnpj) : $support->cpf_cnpj;
         $support->save();
 
         return redirect()->route('supports.index')
@@ -64,7 +70,7 @@ class SupportController extends Controller
     public function edit(Support $support): View
     {
         return view('supports.update', [
-            'supports' => $support
+            'support' => $support
         ]);
     }
 
@@ -77,23 +83,21 @@ class SupportController extends Controller
     public function update(Request $request, Support $support): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
+            'opening_date' => 'required',
+            'status' => 'required',
+            'client_id' => 'required',
+        ],
+        [
+            'opening_date.required'=> 'Data de abertura é obrigatório',
+            'status.required'=> 'Status é obrigatório',
+            'client_id.required'=> 'Cliente é obrigatório',
         ]);
 
         //Another approach to fill the model is try remove _token from input field and load all to the model
 
-        $support->opening_date = $request->input('opening_date');
-        $support->status = $request->input('status');
-        $support->primary_collaborator_id = $request->input('primary_collaborator_id');;
-        $support->secondary_collaborator_id = $request->input('secondary_collaborator_id');
-        $support->start_datetime = $request->input('start_datetime');
-        $support->client_id = $request->input('client_id');
-        $support->address = $request->input('address');
-        $support->requester_id = $request->input('requester_id');
-        $support->description = $request->input('description');
-        $support->solution = $request->input('solution');
+        $request->request->remove("_token");
 
-        $support->save();
+        $support->update($request->all());
 
         return redirect()->route('supports.index')
             ->with('success', 'Chamado atualizado com sucesso');

@@ -94,24 +94,53 @@
 <script>
     $(document).ready(function(){
         let cpf_cnpj = $('#cpf_cnpj');
-        var options = {
-            onKeyPress: function (string, e, field, options) {
+        let phone = $('#phone');
+        let cep = $('#address_zip_code');
+
+        const cpfCnpjOptions = {
+            onKeyPress: function (string, e, field, cpfCnpjOptions) {
                 var masks = ['999.999.999-99Z', '99.999.999/9999-99'];
-                console.log(string.replace(/[./-]/g, '').length);
                 var mask = string.replace(/[./-]/g, '').length > 11 ? masks[1] : masks[0];
 
                 field.unmask();
-                field.mask(mask, options);
+                field.mask(mask, cpfCnpjOptions);
 
                 field[0].setSelectionRange(field.val().length, field.val().length);
                 field.focus();
             },
             translation:  {'Z': {pattern: /[0-9]/, optional: true}}
         };
-        if (cpf_cnpj.val().replace(/[./-]/g, '').length > 11) {
-            cpf_cnpj.mask('99.999.999/9999-99', options);
+
+        const phoneOptions = {
+            onKeyPress: function (string, e, field, phoneOptions) {
+                var masks = ['999.999.999-99Z', '99.999.999/9999-99'];
+                var mask = string.replace(/[ ./-]/g, '').length > 11 ? masks[1] : masks[0];
+
+                field.unmask();
+                field.mask(mask, phoneOptions);
+
+                field[0].setSelectionRange(field.val().length, field.val().length);
+                field.focus();
+            },
+            translation:  {'Z': {pattern: /[0-9]/, optional: true}}
+        };
+
+        if (cpf_cnpj.val().replace(/[./-]/g, '').length === '' || cpf_cnpj.val().replace(/[./-]/g, '').length > 11) {
+            cpf_cnpj.mask('99.999.999/9999-99', cpfCnpjOptions);
         } else {
-            cpf_cnpj.mask('999.999.999-99', options);
+            cpf_cnpj.mask('999.999.999-99', cpfCnpjOptions);
         }
+
+        if (phone.val().replace(/[ ./-]/g, '').length === '' || phone.val().replace(/[ ./-]/g, '').length > 10) {
+            phone.mask('(99) 9 9999-9999', phoneOptions);
+        } else if(phone.val().replace(/[ ./-]/g, '').length > 9) {
+            phone.mask('(99) 9999-9999', phoneOptions);
+        } else if(phone.val().replace(/[ ./-]/g, '').length > 8) {
+            phone.mask('9 9999-9999', phoneOptions);
+        } else {
+            phone.mask('9999-9999', phoneOptions);
+        }
+
+        cep.mask('99999-999');
     });
 </script>
