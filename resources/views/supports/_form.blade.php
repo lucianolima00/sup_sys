@@ -137,6 +137,7 @@
     const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function () {
         $("#primary_collaborator_id").select2({
+            language: "pt-BR",
             allowClear: true,
             ajax: {
                 url: "{{route('supports.collaborators')}}",
@@ -151,7 +152,7 @@
                         used_id: $("#secondary_collaborator_id").val(),
                     };
                 },
-                processResults: function (data, params) {
+                processResults: function (data) {
                     return {
                         results: data
                     };
@@ -161,6 +162,7 @@
         });
 
         $("#secondary_collaborator_id").select2({
+            language: "pt-BR",
             allowClear: true,
             ajax: {
                 url: "{{route('supports.collaborators')}}",
@@ -175,7 +177,7 @@
                         used_id: $("#primary_collaborator_id").val(),
                     };
                 },
-                processResults: function (data, params) {
+                processResults: function (data) {
                     return {
                         results: data
                     };
@@ -185,6 +187,7 @@
         });
 
         $("#client_id").select2({
+            language: "pt-BR",
             allowClear: true,
             ajax: {
                 url: "{{route('supports.clients')}}",
@@ -197,7 +200,7 @@
                         search: params.term
                     };
                 },
-                processResults: function (data, params) {
+                processResults: function (data) {
                     return {
                         results: data
                     };
@@ -207,6 +210,7 @@
         });
 
         $("#requester_id").select2({
+            language: "pt-BR",
             allowClear: true,
             ajax: {
                 url: "{{route('supports.collaborators')}}",
@@ -221,7 +225,7 @@
                         used_id: null,
                     };
                 },
-                processResults: function (data, params) {
+                processResults: function (data) {
                     return {
                         results: data
                     };

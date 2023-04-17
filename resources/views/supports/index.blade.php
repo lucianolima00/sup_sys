@@ -229,7 +229,9 @@ use App\Constants\SupportStatus;
         const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function () {
             $("#primary_collaborator_id_filter").select2({
+                language: "pt-BR",
                 allowClear: true,
+                placeholder: 'Selecione...',
                 ajax: {
                     url: "{{route('supports.collaborators')}}",
                     type: "post",
@@ -243,7 +245,7 @@ use App\Constants\SupportStatus;
                             used_id: $("#secondary_collaborator_id_filter").val(),
                         };
                     },
-                    processResults: function (data, params) {
+                    processResults: function (data) {
                         return {
                             results: data
                         };
@@ -253,7 +255,9 @@ use App\Constants\SupportStatus;
             });
 
             $("#secondary_collaborator_id_filter").select2({
+                language: "pt-BR",
                 allowClear: true,
+                placeholder: 'Selecione...',
                 ajax: {
                     url: "{{route('supports.collaborators')}}",
                     type: "post",
@@ -267,7 +271,7 @@ use App\Constants\SupportStatus;
                             used_id: $("#primary_collaborator_id_filter").val(),
                         };
                     },
-                    processResults: function (data, params) {
+                    processResults: function (data) {
                         return {
                             results: data
                         };
@@ -277,7 +281,9 @@ use App\Constants\SupportStatus;
             });
 
             $("#client_id_filter").select2({
+                language: "pt-BR",
                 allowClear: true,
+                placeholder: 'Selecione...',
                 ajax: {
                     url: "{{route('supports.clients')}}",
                     type: "post",
@@ -289,7 +295,7 @@ use App\Constants\SupportStatus;
                             search: params.term
                         };
                     },
-                    processResults: function (data, params) {
+                    processResults: function (data) {
                         return {
                             results: data
                         };
@@ -299,7 +305,9 @@ use App\Constants\SupportStatus;
             });
 
             $("#requester_id_filter").select2({
+                language: "pt-BR",
                 allowClear: true,
+                placeholder: 'Selecione...',
                 ajax: {
                     url: "{{route('supports.collaborators')}}",
                     type: "post",
@@ -313,7 +321,7 @@ use App\Constants\SupportStatus;
                             used_id: null,
                         };
                     },
-                    processResults: function (data, params) {
+                    processResults: function (data) {
                         return {
                             results: data
                         };

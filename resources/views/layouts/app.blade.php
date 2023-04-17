@@ -24,6 +24,7 @@
         <!-- Select2 -->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src={{ asset('js/select2_locale_pt-BR.js') }}></script>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -54,5 +55,11 @@
                 {{ $slot }}
             </main>
         </div>
+        <script>
+            $(document).ready(function() {
+                $('.select2-selection').css('height', '100%');
+                $('.select2-selection__rendered').css('line-height', '40px');
+            });
+        </script>
     </body>
 </html>
