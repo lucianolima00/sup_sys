@@ -152,8 +152,6 @@
                     };
                 },
                 processResults: function (data, params) {
-                    console.log(data);
-                    console.log(params);
                     return {
                         results: data
                     };
@@ -178,8 +176,6 @@
                     };
                 },
                 processResults: function (data, params) {
-                    console.log(data);
-                    console.log(params);
                     return {
                         results: data
                     };
@@ -202,8 +198,6 @@
                     };
                 },
                 processResults: function (data, params) {
-                    console.log(data);
-                    console.log(params);
                     return {
                         results: data
                     };
@@ -228,8 +222,6 @@
                     };
                 },
                 processResults: function (data, params) {
-                    console.log(data);
-                    console.log(params);
                     return {
                         results: data
                     };

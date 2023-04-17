@@ -3,6 +3,7 @@
 use App\Widgets\Formatter;
 use App\Models\Client;
 use App\Models\Collaborator;
+use App\Constants\CollaboratorTypes;
 use App\Constants\SupportStatus;
 
 @endphp
@@ -64,14 +65,19 @@ use App\Constants\SupportStatus;
                 'attribute' => 'id',
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Data de abertura',
                 'attribute' => 'opening_date',
+                'value' => function ($row) {
+                    return Formatter::asDate($row->opening_date);
+                },
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Técnico 1',
@@ -83,8 +89,13 @@ use App\Constants\SupportStatus;
                     return $row->primary_collaborator_id;
                 },
                 'htmlAttributes' => [
-                    'style' => 'padding-right: 2rem'
-                ]
+                    'style' => 'padding-right: 2rem',
+                ],
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => [Arr::get(Arr::get($_GET, 'filters'), 'primary_collaborator_id') => Collaborator::find(Arr::get(Arr::get($_GET, 'filters'), 'primary_collaborator_id'))?->name]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Técnico 2',
@@ -95,16 +106,25 @@ use App\Constants\SupportStatus;
                     }
                     return $row->secondary_collaborator_id;
                 },
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => [Arr::get(Arr::get($_GET, 'filters'), 'secondary_collaborator_id') => Collaborator::find(Arr::get(Arr::get($_GET, 'filters'), 'secondary_collaborator_id'))?->name]
+                ],
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Data de agendamento',
                 'attribute' => 'start_datetime',
+                'value' => function ($row) {
+                    return Formatter::asDatetime($row->start_datetime);
+                },
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Cliente',
@@ -117,14 +137,20 @@ use App\Constants\SupportStatus;
                 },
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => [Arr::get(Arr::get($_GET, 'filters'), 'client_id') => Client::find(Arr::get(Arr::get($_GET, 'filters'), 'client_id'))?->name]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Localidade',
                 'attribute' => 'address',
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Solicitante',
@@ -137,13 +163,21 @@ use App\Constants\SupportStatus;
                 },
                 'htmlAttributes' => [
                     'style' => 'padding-right: 2rem'
-                ]
+                ],
+                'filter' => [
+                    'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
+                    'data' => [Arr::get(Arr::get($_GET, 'filters'), 'requester_id') => Collaborator::find(Arr::get(Arr::get($_GET, 'filters'), 'requester_id'))?->name]
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Descrição',
                 'attribute' => 'description',
+                'value' => function ($row) {
+                    return substr($row->description, 0, 100);
+                },
                 'htmlAttributes' => [
-                    'style' => 'padding-right: 2rem'
+                    'style' => 'padding-right: 2rem; min-width: 20rem'
                 ]
             ],
             [
@@ -154,19 +188,139 @@ use App\Constants\SupportStatus;
                 },
                 'filter' => [
                     'class' => Lucianolima00\GridView\Filters\DropdownFilter::class,
-                    'data' => SupportStatus::list()
+                    'data' => SupportStatus::list(),
                 ],
                 'htmlAttributes' => [
-                    'style' => 'padding-right: 2rem'
-                ]
+                    'style' => 'padding-right: 6rem'
+                ],
+                'class' => 'text-nowrap',
             ],
             [
                 'label' => 'Andamento/Solução',
                 'attribute' => 'solution',
+                'value' => function ($row) {
+                    return substr($row->solution, 0, 100);
+                },
                 'htmlAttributes' => [
-                    'style' => 'padding-right: 2rem'
+                    'style' => 'padding-right: 2rem; min-width: 20rem'
                 ]
             ],
         ]
     ]) !!}
+
+    <!-- Script -->
+    <script type="text/javascript">
+        flatpickr("#opening_date_filter", {
+            dateFormat: 'Y-m-d',
+            altFormat: 'd/m/Y',
+            disableMobile: "true",
+            altInput: "true",
+        });
+        flatpickr("#start_datetime_filter", {
+            dateFormat: 'Y-m-d H:i',
+            altFormat: 'd/m/Y H:i',
+            enableTime: true,
+            disableMobile: "true",
+            time_24hr: true,
+            altInput: "true",
+        });
+
+        // CSRF Token
+        const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function () {
+            $("#primary_collaborator_id_filter").select2({
+                allowClear: true,
+                ajax: {
+                    url: "{{route('supports.collaborators')}}",
+                    type: "post",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term,
+                            type: {{ CollaboratorTypes::TECHNIQUE }},
+                            used_id: $("#secondary_collaborator_id_filter").val(),
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#secondary_collaborator_id_filter").select2({
+                allowClear: true,
+                ajax: {
+                    url: "{{route('supports.collaborators')}}",
+                    type: "post",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term,
+                            type: {{ CollaboratorTypes::TECHNIQUE }},
+                            used_id: $("#primary_collaborator_id_filter").val(),
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#client_id_filter").select2({
+                allowClear: true,
+                ajax: {
+                    url: "{{route('supports.clients')}}",
+                    type: "post",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#requester_id_filter").select2({
+                allowClear: true,
+                ajax: {
+                    url: "{{route('supports.collaborators')}}",
+                    type: "post",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term,
+                            type: {{ CollaboratorTypes::REQUESTER }},
+                            used_id: null,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        });
+    </script>
 @stop

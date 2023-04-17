@@ -47,7 +47,6 @@ class Formatter extends AbstractWidget
         }
     }
 
-
     /**
      * @param $cep
      * @return string|null
@@ -57,6 +56,26 @@ class Formatter extends AbstractWidget
         $cep = str_pad($cep, 8, 0, STR_PAD_LEFT);
 
         return preg_replace('/(\d{5})(\d{3})/', '${1}-${2}', $cep);
+    }
+
+    /**
+     * @param $date
+     * @return string|null
+     */
+    public static function asDate(?string $date): ?string
+    {
+        return preg_replace('/^(\d{4})-(\d{2})-(\d{2})$/', '$3/$2/$1', $date);
+    }
+
+    /**
+     * @param $datetime
+     * @return string|null
+     */
+    public static function asDatetime(?string $datetime): ?string
+    {
+        $datetime = str_pad($datetime, 8, 0, STR_PAD_LEFT);
+
+        return preg_replace('/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})$/', '$3/$2/$1 $4:$5:$6', $datetime);
     }
 
 
