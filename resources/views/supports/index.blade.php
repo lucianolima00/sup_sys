@@ -39,7 +39,7 @@ use App\Constants\SupportStatus;
         'dataProvider' => $dataProvider,
         'countColumn' => false,
         'useFilters' => true,
-        'searchButtonStyle' => 'background-color: #0d6efd',
+        'searchButtonStyle' => 'background-color:  #0d6efd',
         'resetButtonStyle' => 'background-color: #ffc107; color: white',
         'columnFields' => [
             [
