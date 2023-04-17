@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44052c2df9cad116c47eb44a150cbcd6",
+    "content-hash": "7a0ed7589028be08953d2ad1e73c40d7",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -1823,16 +1823,16 @@
         },
         {
             "name": "lucianolima00/laravel-grid-view",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucianolima00/laravel-grid-view.git",
-                "reference": "e80d114feefe5972183a04a039527d5957bcaa47"
+                "reference": "6f6d74a3f80ce4176888ae61a0ec1ff9af36b395"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucianolima00/laravel-grid-view/zipball/e80d114feefe5972183a04a039527d5957bcaa47",
-                "reference": "e80d114feefe5972183a04a039527d5957bcaa47",
+                "url": "https://api.github.com/repos/lucianolima00/laravel-grid-view/zipball/6f6d74a3f80ce4176888ae61a0ec1ff9af36b395",
+                "reference": "6f6d74a3f80ce4176888ae61a0ec1ff9af36b395",
                 "shasum": ""
             },
             "require": {
@@ -1875,9 +1875,9 @@
                 "view"
             ],
             "support": {
-                "source": "https://github.com/lucianolima00/laravel-grid-view/tree/1.0.18"
+                "source": "https://github.com/lucianolima00/laravel-grid-view/tree/1.0.19"
             },
-            "time": "2023-04-17T02:07:09+00:00"
+            "time": "2023-04-17T04:35:13+00:00"
         },
         {
             "name": "monolog/monolog",
