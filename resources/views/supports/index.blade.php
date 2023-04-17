@@ -40,7 +40,7 @@ use App\Constants\SupportStatus;
         'countColumn' => false,
         'useFilters' => true,
         'searchButtonStyle' => 'background-color: #0d6efd',
-        'resetButtonStyle' => 'background-color: #ffc107; color: white',
+        'resetButtonStyle' => 'background-color: #ffc107; color:white',
         'columnFields' => [
             [
                 'class' => Lucianolima00\GridView\Columns\ActionColumn::class,
