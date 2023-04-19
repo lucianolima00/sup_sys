@@ -24,30 +24,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('solution')->nullable();
             $table->timestamps();
-
-            $table->foreign('primary_collaborator_id')
-                ->references('id')
-                ->on('collaborators')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-
-            $table->foreign('secondary_collaborator_id')
-                ->references('id')
-                ->on('collaborators')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-
-            $table->foreign('requester_id')
-                ->references('id')
-                ->on('collaborators')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-
-            $table->foreign('client_id')
-                ->references('id')
-                ->on('collaborators')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
         });
     }
 
@@ -56,13 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('supports', function (Blueprint $table) {
-            $table->dropForeign(['primary_collaborator_id']);
-            $table->dropForeign(['secondary_collaborator_id']);
-            $table->dropForeign(['requester_id']);
-            $table->dropForeign(['client_id']);
-        });
-
         Schema::dropIfExists('supports');
     }
 };

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Lucianolima00\GridView\DataProviders\EloquentDataProvider;
 
@@ -43,14 +45,18 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ],
+        $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ],
             [
                 'email.required'=> 'Email é obrigatório',
+                'email.email'=> 'Formato inválido para o email',
                 'password.required'=> 'Senha é obrigatório',
             ]);
+
+        $request->request->add(['password' => Hash::make( $request->input('password'))]);
 
         $user = new User($request->all());
         $user->save();
@@ -77,17 +83,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+        $request->validate(
+        [
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],
-            [
-                'email.required'=> 'Email é obrigatório',
-                'password.required'=> 'Senha é obrigatório',
-            ]);
+        [
+            'email.required'=> 'Email é obrigatório',
+            'email.email'=> 'Formato inválido para o email',
+            'password.required'=> 'Senha é obrigatório',
+        ]);
 
-        //Another approach to fill the model is try remove _token from input field and load all to the model
-
+        $request->request->add(['password' => Hash::make( $request->input('password'))]);
         $request->request->remove("_token");
 
         $user->update($request->all());

@@ -50,6 +50,7 @@ class CollaboratorController extends Controller
         ]);
 
         $request->request->add(['cpf_cnpj' => preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'))]);
+
         $collaborator = new Collaborator($request->all());
         $collaborator->save();
 

@@ -3,7 +3,7 @@
 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mt-4">
     <x-input-label for="id" :value="__('Código')"/>
     <x-text-input id="id" disabled="true" class="block mt-1 w-full" type="text" name="id"
-                  :value="Formatter::asID(old('id', $support->id))" autocomplete="id"/>
+                  :value="Formatter::asID(old('id', $support->id))" autocomplete="id" style="background: #E1E1E1; color: #313131"/>
     <x-input-error :messages="$errors->get('id')" class="mt-2"/>
 </div>
 

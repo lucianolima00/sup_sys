@@ -50,6 +50,7 @@ class ClientController extends Controller
         $request->request->add(['cpf_cnpj' => preg_replace('/[.\/-]/', '', $request->input('cpf_cnpj'))]);
         $request->request->add(['phone' => preg_replace('/[ .()\/-]/', '', $request->input('phone'))]);
         $request->request->add(['address_zip_code' => preg_replace('/[.\/-]/', '', $request->input('address_zip_code'))]);
+
         $client = new Client($request->all());
         $client->save();
 

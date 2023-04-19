@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'admin' => 1,
             'email' => 'admin@supsys.com',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make(env('APP_ADMIN_PW', '123456789')),
         ]);
     }
 }
