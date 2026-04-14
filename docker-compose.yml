@@ -6,28 +6,50 @@ services:
         hostname: mysql
         restart: unless-stopped
         volumes:
-            - /var/lib/mysql
+            - supsys_db:/var/lib/mysql
         env_file:
             - .env.db
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-123456}"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+            start_period: 10s
         networks:
-        - supsys
+            - supsys
     app:
         container_name: supsys_app
-        build: .
+        build:
+            context: .
+            args:
+                # Pass APP_ENV into the image build (controls composer/npm flags).
+                # Set APP_ENV=production in your shell for a prod build; defaults to local.
+                APP_ENV: ${APP_ENV:-local}
         depends_on:
-            - mysql
+            mysql:
+                condition: service_healthy
         hostname: app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '8001:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            - '8001:8080'
         env_file:
             - .env
+        environment:
+            APP_ENV: ${APP_ENV:-local}
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: supsys
+            DB_USERNAME: root
+            DB_PASSWORD: '123456'
         volumes:
-        - './.:/supsys'
+            - './storage:/var/www/html/storage'
+            - './.env:/var/www/html/.env'
         networks:
             - supsys
+
+volumes:
+    supsys_db:
 
 networks:
     supsys:

@@ -14,6 +14,10 @@ class Support extends Model
 
     public $timestamps = true;
 
+    protected $casts = [
+        'address' => 'array',
+    ];
+
     protected $fillable = [
         'opening_date',
         'status',
